@@ -33,10 +33,18 @@ public class ProcMgr_mgohde
         switch(a.command)
         {
             case "schedule":
-                
+                break;
             case "register":
                 break;
             case "list":
+                //Terrible asumption: the queue service is local:
+                JobList j=new JobList("localhost", 9000, u);
+                System.out.println("User job list:");
+                for(String s:j.getJobList())
+                {
+                    System.out.println(s);
+                }
+                
                 break;
             case "cancel":
                 break;

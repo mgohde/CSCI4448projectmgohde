@@ -78,6 +78,15 @@ public class Service
             else if(command.equals("listjobs"))
             {
                 User u=new User(in);
+                for(Job j:jobs)
+                {
+                    if(j.getOwner().getUsername().equals(u.getUsername()))
+                    {
+                        out.write(j.getName()+"\n");
+                    }
+                }
+                
+                out.write("OK");
             }
             
             out.flush();
