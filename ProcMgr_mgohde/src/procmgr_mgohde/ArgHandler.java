@@ -40,12 +40,11 @@ public class ArgHandler {
         boolean u=false;
         boolean p=false;
         
-        if(args.length>2)
+        if(args.length>0)
         {
             this.command=args[0];
-            this.arg=args[1];
             
-            for(int i=2;i<args.length;i++)
+            for(int i=1;i<args.length;i++)
             {
                 if(args[i].equals("-u"))
                 {
@@ -67,6 +66,11 @@ public class ArgHandler {
                 {
                     this.password=args[i];
                     p=false;
+                }
+                
+                else
+                {
+                    this.arg=args[i];
                 }
             }
             
