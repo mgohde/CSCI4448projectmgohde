@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * LONG SHOT GOAL: make this interface symmetric: ie. instances of ServiceCommands
+ * in both the client and service can be used to carry out the commands specified.
  */
 package procmgr_mgohde;
 
@@ -9,6 +8,7 @@ package procmgr_mgohde;
  *
  * @author mgohde
  */
-public interface ServiceCommand {
-    
+public interface ServiceCommand 
+{   
+    public boolean sendCommand(User u);
 }

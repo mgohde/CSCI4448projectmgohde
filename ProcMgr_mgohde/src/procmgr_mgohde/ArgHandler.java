@@ -13,6 +13,7 @@ public class ArgHandler {
     public String arg;
     public String username;
     public String password;
+    public int servicePort;
     
     public void printUsage()
     {
@@ -39,6 +40,8 @@ public class ArgHandler {
     {
         boolean u=false;
         boolean p=false;
+        
+        this.servicePort=9000;
         
         if(args.length>0)
         {

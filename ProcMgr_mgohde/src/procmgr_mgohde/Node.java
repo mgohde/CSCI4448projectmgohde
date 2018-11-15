@@ -7,6 +7,7 @@ package procmgr_mgohde;
  *
  * @author mgohde
  */
-public class Node {
+public class Node 
+{
     
 }

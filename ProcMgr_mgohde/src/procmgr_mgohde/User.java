@@ -61,6 +61,11 @@ public class User
         return admin;
     }
     
+    public boolean equals(User u)
+    {
+        return this.password.equals(u.password) && this.userName.equals(u.userName);
+    }
+    
     public void save(String userDir) throws FileNotFoundException
     {
         PrintWriter pw=new PrintWriter(userDir+"/"+this.userName);

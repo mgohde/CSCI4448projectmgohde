@@ -21,11 +21,28 @@ public class Service
     private ServerSocket ss;
     private ArrayList<ServerInfo> clients;
     private ArrayList<Job> jobs;
+    private User admin;
     
-    public Service(int port) throws IOException
+    public Service(int port, User u) throws IOException
     {
         //We'll listen on the port specified and allow for up to 10 connections in the queue:
         this.ss=new ServerSocket(port, 10);
+        this.admin=u;
+    }
+    
+    private void printExit(String s, PrintWriter out)
+    {
+        out.write(s);
+    }
+    
+    private void printOK(PrintWriter out)
+    {
+        printExit("OK\n", out);
+    }
+    
+    private void printERR(PrintWriter out)
+    {
+        printExit("ERR\n", out);
     }
     
     public void run() throws IOException
@@ -36,7 +53,10 @@ public class Service
         
         while(keepRunning)
         {
+            System.out.println("Waiting for command...");
             s=ss.accept();
+            
+            System.out.println("Got command!");
             
             //Since I've spent the last day debugging a project at work, I'll just keep this simple (and in one thread!)
             PrintWriter out = new PrintWriter(s.getOutputStream(), true);
@@ -51,7 +71,7 @@ public class Service
                 clients.add(new ServerInfo(s.getInetAddress().getHostAddress(), "node"+clients.size()));
                 
                 //Respond:
-                out.write("ok\n");
+                printOK(out);
             }
             
             else if(command.equals("list"))
@@ -60,7 +80,8 @@ public class Service
                 {
                     out.write(clients.get(i).getName()+"\n");
                 }
-                out.write("OK\n");
+                
+                printOK(out);
             }
             
             //This is a node telling us its job is done:
@@ -72,7 +93,7 @@ public class Service
                     
                 }
                 
-                out.write("OK");
+                printOK(out);
             }
             
             else if(command.equals("listjobs"))
@@ -86,7 +107,23 @@ public class Service
                     }
                 }
                 
-                out.write("OK");
+                printOK(out);
+            }
+            
+            else if(command.equals("stop"))
+            {
+                User u=new User(in);
+                
+                if(u.equals(this.admin))
+                {
+                    keepRunning=false;
+                    printOK(out);
+                }
+                
+                else
+                {
+                    printERR(out);
+                }
             }
             
             out.flush();
