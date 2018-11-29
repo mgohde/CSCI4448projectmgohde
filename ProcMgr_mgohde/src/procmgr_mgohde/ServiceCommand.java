@@ -10,5 +10,10 @@ package procmgr_mgohde;
  */
 public interface ServiceCommand 
 {   
+    /**
+     * Sends a command (presumably to a server) with the specified user.
+     * @param u
+     * @return 
+     */
     public boolean sendCommand(User u);
 }

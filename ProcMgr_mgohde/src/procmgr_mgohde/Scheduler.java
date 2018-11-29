@@ -1,7 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Unfortunately, this was never used.
+ * The long shot goal would be to actually have a reasonable scheduling algorithm which could take into 
+ * account available resources and present utilization. Instead, the job service just uses round robin scheduling, and
+ * the node/executor service simply spawns a new thread to handle each job.
  */
 package procmgr_mgohde;
 import java.util.ArrayList;

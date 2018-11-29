@@ -14,7 +14,11 @@ public class ArgHandler {
     public String username;
     public String password;
     public int servicePort;
+    public String ip;
     
+    /**
+     * Prints a usage statement for the program.
+     */
     public void printUsage()
     {
         System.out.println("ProcMgr CLI Usage: ");
@@ -29,19 +33,29 @@ public class ArgHandler {
         System.out.println();
         System.out.println("If you are an administrator, you may also the following:");
         System.out.println("\tlistservers\tLists running job servers.");
-        System.out.println("\toffline\tTakes a server offline.");
+        System.out.println("\tstopservice\tStops the running job service.");
+        System.out.println("\tstopnode\tTakes a job server/node offline.");
         System.out.println();
         System.out.println("Optional arguments:");
-        System.out.println("\t-u\tSpecifies username.");
-        System.out.println("\t-p\tSpecifies password.");
+        System.out.println("\t-u [username]\tSpecifies username.");
+        System.out.println("\t-p [password]\tSpecifies password.");
+        System.out.println("\t-port [port]\tSpecifies port to use for service communications.");
+        System.out.println("\t-ip [address]\tSpecifies an address at which to contact the job service");
     }
     
+    /**
+     * Maps arguments passed from the command line to internal representations.
+     * @param args 
+     */
     public ArgHandler(String args[]) 
     {
         boolean u=false;
         boolean p=false;
+        boolean port=false;
+        boolean ip=false;
         
         this.servicePort=9000;
+        this.ip="localhost";
         
         if(args.length>0)
         {
@@ -57,6 +71,28 @@ public class ArgHandler {
                 else if(args[i].equals("-p"))
                 {
                     p=true;
+                }
+                
+                else if(args[i].equals("-port"))
+                {
+                    port=true;
+                }
+                
+                else if(args[i].equals("-ip"))
+                {
+                    ip=true;
+                }
+                
+                else if(port)
+                {
+                    this.servicePort=Integer.parseInt(args[i]);
+                    port=false;
+                }
+                
+                else if(ip)
+                {
+                    this.ip=args[i];
+                    ip=false;
                 }
                 
                 else if(u)
